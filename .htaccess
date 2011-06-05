@@ -1,0 +1,8 @@
+#
+ErrorDocument 402 /index.php
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
+ErrorDocument 500 /index.php
+RewriteEngine ON
+RewriteRule ^dbf.html	dbf.main.php
+RewriteRule ^dbf.html	index.php

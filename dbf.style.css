@@ -1,0 +1,87 @@
+#divUpControl {
+	Z-INDEX: 1; LEFT: 725px; POSITION: absolute; TOP: 210px
+}
+#divDownControl {
+	Z-INDEX: 2; LEFT: 725px; POSITION: absolute; TOP: 375px
+}
+#divContainer {
+	Z-INDEX: 3; LEFT: 255px; VISIBILITY: hidden; OVERFLOW: hidden; WIDTH: 440px; POSITION: absolute; TOP: 220px; HEIGHT: 180px
+}
+#divContent {
+	LEFT: 0px; WIDTH: 440px; POSITION: absolute; TOP: 0px; HEIGHT: 180px
+}
+#divLeftBack {
+	Z-INDEX: 1; LEFT: 200px; POSITION: absolute; TOP: 210px
+}
+#divLeftPrint {
+	Z-INDEX: 1; LEFT: 200px; POSITION: absolute; TOP: 330px
+}
+#divLeftMail {
+	Z-INDEX: 1; LEFT: 200px; POSITION: absolute; TOP: 380px
+}
+.statusls {
+	FONT-SIZE: 8pt; COLOR: #000000; FONT-FAMILY: VERDANA,ARIAL,HELVETICA
+}
+TD {
+	FONT-SIZE: 8pt; COLOR: #000000; FONT-FAMILY: VERDANA,ARIAL,HELVETICA
+}
+.text {
+	FONT-SIZE: 8pt; COLOR: #000000; FONT-FAMILY: VERDANA,ARIAL,HELVETICA
+}
+.ueberschrift1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #000000; FONT-FAMILY: VERDANA,ARIAL,HELVETICA
+}
+.big {
+	FONT-WEIGHT: bold; FONT-SIZE: 22pt; COLOR: #9c9e9c; FONT-FAMILY: VERDANA,ARIAL,HELVETICA
+}
+.klein {
+	FONT-SIZE: 10px; FONT-FAMILY: ARIAL,HELVETICA,VERDANA
+}
+A:link {
+	COLOR: #000080; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #000080; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: orange; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000080; TEXT-DECORATION: underline
+}
+input { 
+ background-color: #efefef; 
+}
+select { 
+ background-color: #efefef; 
+ color: #000000; 
+}
+
+#tabellea {
+    position: absolute;
+    background-color: #9DA8A7;
+    border: 0px solid silver;
+    left:1050px; top:70px; width:150px; overflow:hidden;
+}
+
+#hund {
+    position: absolute;
+    top:0px; left:0px;
+    border: 0px solid silver;
+}
+
+#hund2 {
+    position: absolute;
+    top:0px; left:0px;
+    border: 0px solid silver;
+    visibility:hidden;
+}
+
+.rahmen { 
+  border: #336666; 
+  border-style: solid; 
+  border-top-width: 2px; 
+  border-right-width: 2px; 
+  border-bottom-width: 2px; 
+  border-left-width: 2px;
+}
