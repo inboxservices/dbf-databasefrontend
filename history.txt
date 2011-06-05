@@ -1,0 +1,77 @@
+// datenbank-editing-admin mit generischer struktur
+//
+// dbadmin (c) 2011/02 klaus oblasser
+// mail: ls@ls.to
+//
+// history.txt
+
+### 2011-02
+
+0.99
+ - grundfunktionalitaet 
+
+0.997
+ - authifizierung includiert
+
+0.997t
+ - beschraenkung auf einzelne felder moeglich. 
+ - variable: zeigefelder
+ - variable: td-weite je feld ( feldw[] )
+ - variable: variablengroesse je feld ( feldz[] )
+
+0.998a
+ - auth-abfrage auf subsites
+ - edit/delete-buttons nun nurmehr links.
+ - neu-button nun auch links.
+  
+0.998b 
+ - sql-statement fuer select frei editierbar
+ - update und insert-formular fuer kompeltteditierung eines eintrags
+   mit sql-statement-anpassung
+ - sql-statements angepasst an externe systeme: zeichenbegrenzer: "`"
+ 
+dbf 0.999c
+ - single-file struktur
+ - config fuer einzelfelder ermoeglicht & angepasst
+ - einzel-detail editing korrigiert
+ - datenbank komplettdurchforstung eingebaut
+
+ - anpassung an php 5.3
+
+dbf 1.0 alpha 0.99
+
+ - +csv exportmodul
+ - aufgaben in einzel-php-dateien verteilt.
+   dadurch bessere struktur fuer den main-bereich.
+   
+dbf 0.99c
+ - sql-statement fuer freitext ueberarbeitet
+ - singe-edit felderdefinition impementiert
+
+dbf 0.99e
+ - erweiterung auswahl for oder while-schleife.
+ - erweiterung sql-auswahl sonderteile (oder by {feld} DESC)
+ - tests fuer php 5.3.3 (debian sqqueeze) erfolgreich
+
+### 2011-04
+
+dbf 1.0
+ - auth und ncm-loesung integriert.
+ - erste tabelle-auswahl autmomatisch
+ - ruecksprung-merker fuer update eingebaut. (akt=aktuell) 
+
+### 2011-05
+ 
+dbf 1.0001.b
+ - update fuer suche ueberarbeitet.
+   nun gehen die updates auch fuer select xx,xxx from
+ 
+dbf 1.1 beta7
+ - suchfeld-hoehe waechst nun mit der eingabe 
+ - datenbanken werden auch generisch ausgelesen
+ - dbmore=1 && tmore=1 -> moeglichkeit fuer singletables.
+
+dbf 1.1 beta10
+ - felder koennen per mousemove die breite aendern.
+ - resizeing der felder wird in txt.datei gespeichert.
+ 
