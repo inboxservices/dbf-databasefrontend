@@ -1,4 +1,13 @@
 <?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
 
 echo("<font face=arial size=1><br><i> $infotext </i><br>");
 
@@ -7,7 +16,7 @@ if(!mysql_select_db($database,$conn2)){echo ("Cannot select database.\n");}
 
 $aktuell = $akt;
 
-$sql2="select * from $table " . $sortorder[$t];
+$sql2="select * from $table " . $sortorder[$db][$t];
 
 if ( $single == 1 )
 {
@@ -124,8 +133,15 @@ if(!($result2=mysql_query($sql2,$conn2)))
      // uebersichtseintrag
      if ( in_array($x, $zeigefelder[$t]) OR $zeigeallefelder[$t] == 1 )
      {
-      $b_update = $b_update . "<td> <font face=arial size=1>
-      <input id='" . $kkeyfuell . "_" . $satz . "' type='Text' name='$kkeyfuell' value='$data2x' size='$feldzx' style='background:lemonchiffon; font-size:8pt'></td>";
+      if ( $feldz[$db][$t][$x] == 1)
+      {
+       // $debug_status = $debug_status . "feld " . $x . " unsichtbar:" . $feldz[$db][$t][$x] . "<br>";
+      }
+      else
+      {
+       $b_update = $b_update . "<td id='bu_".$x."_".$satz."'> <font face=arial size=1>
+       <input id='" . $kkeyfuell . "_" . $satz . "' type='Text' name='$kkeyfuell' value='$data2x' size='$feldzx' style='background:lemonchiffon; font-size:8pt'></td>";
+      }
      }
     }
    }
@@ -178,12 +194,21 @@ if(!($result2=mysql_query($sql2,$conn2)))
     echo "
     <form action='' method='POST'>
     <tr>
-    <td colspan='4'><font face=arial size=1><input type='Submit' name='hinzufuegen' value='new'></td>
+    <td colspan='2'><font face=arial size=1><input type='Submit' name='hinzufuegen' value='new'></td>
         " . $b_insert ."
     <input type='hidden' name='t' value='$t'>
     <input type='hidden' name='db' value='$db'>
     <input type='hidden' name='schritt' value='sinsert'>
-    </tr></form></table> ";
+    </tr></form>";
+
+    echo "
+    <form action='' method='POST'>
+    <tr>
+    <td colspan='3'><font face=arial size=1>sichtbarkeit:</td>
+        " . $b_sicht ."
+    <input type='hidden' name='t' value='$t'>
+    <input type='hidden' name='db' value='$db'>
+    </tr></form> </table>";
 
     if ( $single == 1)
     {

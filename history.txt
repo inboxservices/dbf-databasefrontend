@@ -1,9 +1,11 @@
-// datenbank-editing-admin mit generischer struktur
-//
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
-//
-// history.txt
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
 ### 2011-02
 
@@ -71,7 +73,12 @@ dbf 1.1 beta7
  - datenbanken werden auch generisch ausgelesen
  - dbmore=1 && tmore=1 -> moeglichkeit fuer singletables.
 
+### 2011-06
+
 dbf 1.1 beta10
  - felder koennen per mousemove die breite aendern.
  - resizeing der felder wird in txt.datei gespeichert.
- 
+
+dbf 1.1
+ - felder koennen per checkbox/ajax ausgeschaltet
+   versteckt bzw. wieder eingeschaltet/sichtbar gemacht werden. 

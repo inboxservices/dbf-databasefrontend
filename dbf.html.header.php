@@ -1,95 +1,25 @@
+<?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
+
+?>
 <html>
 <head>
 <style type="text/css">
 .splitter { background-color: #ffffff; width: 2px; height: 100%; }
 </style>
  <LINK href="dbf.style.css" type="text/css" rel=stylesheet>
-
-<script>
-<?
-include("dbf.js.php");
-?>
-
-function addtext (content)
-{
- document.getElementById('sqlstatement').value= document.getElementById('sqlstatement').value + content;
-}
-
-function checkRows(textArea)
-{
- if (navigator.appName.indexOf("Microsoft Internet Explorer") == 0)
- {
-  textArea.style.overflow = 'visible';
-  return;
- }
-
- while ( textArea.rows > 1 && textArea.scrollHeight < textArea.offsetHeight )
- {
-  textArea.rows--;
- }
-
- while (textArea.scrollHeight > textArea.offsetHeight)
- {
-  textArea.rows++;
- }
- textArea.rows++;
- return;
-}
-
-function handleMouseDown( ev )
-{
- posX = ev.screenX;
- elementId = ev.target.id;
-}
-
-function handleMouseUp( ev )
-{
- posY = ev.screenX;
- elempos = ( posX - posY ) / 6 ;
- elementId = ev.target.id;
-
- if ( elementId )
- {
-  zahl = document.getElementById('menginfo').value;
-  for ( var i = 0; i <= zahl; i++ )
-  {
-   elemid = elementId + "_" + i;
-   if ( document.getElementById( elemid ) )
-   {
-    elemgo = document.getElementById( elemid ).size - elempos;
-    document.getElementById( elemid ).size = elemgo;
-
-
- db = document.getElementById('db').value;
- t = document.getElementById('t').value;
- size = elemgo;
- feld = elementId;
-
- param='db='+db+'&t='+t+'&size='+size+'&feld='+feld;
-
- xmlHttp.onreadystatechange = handleServerResponse;
- xmlHttp.open("POST", "dbf.conf.html.php"+'?'+Math.random(), true); 
-
- xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
- xmlHttp.setRequestHeader("Content-length", param.length);
- xmlHttp.setRequestHeader("Connection", "close");
-
- // make the server request
- xmlHttp.send(param);
-
-
-   }
-  }
- }
-}
-
-document.onmousedown = handleMouseDown;
-document.onmouseup = handleMouseUp;
-
-</script>
+ <script type="text/javascript" src="dbf.tools.js"></script>
 </head>
 
-<BODY onLoad="checkRows(sqlstatement)" text="#000000" bottomMargin=0 vLink="#000000" link="#000000" bgColor="#ffffff" leftMargin=0 topMargin=0 rightMargin=0 marginwidth="0" marginheight="0" alink="#000000">
+<BODY onLoad="checkRows( document.getElementById('sqlstatement') )" text="#000000" bottomMargin=0 vLink="#000000" link="#000000" bgColor="#ffffff" leftMargin=0 topMargin=0 rightMargin=0 marginwidth="0" marginheight="0" alink="#000000">
 
  <table width="99%" border="0" bgColor="#cdcdcd">
   <tr>
@@ -141,6 +71,7 @@ document.onmouseup = handleMouseUp;
          <input type='hidden' name='t' value=<? echo("$t"); ?>>
          <input type='hidden' name='db' value=<? echo("$db"); ?>>
 	 <input type='Submit' name='go' value='suche' style="background:#9BCCCA; font-size:8pt">
+         <? echo("$feldanzahlzeiger"); ?>
 	</form>
      </td><td>
         <? echo("$tablenauswahl"); ?>

@@ -1,12 +1,15 @@
 <?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
 // error_reporting(E_ALL);
 error_reporting(E_ERROR|E_WARNING);
-
-// datenbank-editing-admin mit generischer struktur
-// single-file version ( db.php )
-// v 1.01b
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
 
 // #A gundconfig
 // zugang per htaccessabfrage
@@ -18,10 +21,10 @@ $_password_ = 'dbf';
 // zugangsdaten zur db
 
  // direkte zugangsdaten mysql
-$host="localhost";
-$user="";
-$password="";
-$database="";
+ $host="localhost";
+ $user="";
+ $password="";
+ $database="dbf";
 
 $dbmore = 1; // weitere dbs anzeigen ?
 
@@ -47,24 +50,24 @@ $abnunforschleife = 50;
 // #B spezialwerte je tabelle
 
 // sortier/ausgabe (for oder while)
-$sqlsort['categories'] = "0"; // while
-$sqlsort['ausfall'] = "1"; // for
-$sortorder['products'] = "order by `products_model` DESC";
+$sqlsort['dbf']['categories'] = "0"; // while
+$sqlsort['dbf']['ausfall'] = "1"; // for
+$sortorder['dbf']['products'] = "order by `products_model` DESC";
+// \
 
+// ueberschreibt sichtbarkeit des frontent-ajax:
+$zeigeallefelder['dbf']['letter'] = "1"; // alle felder ein = 1
+$zeigefelder['dbf']['letter'] = array("0", "2", "3");
+// \
 
-// beispiel:
-// tabellen
-$zeigeallefelder['letter'] = "1"; // alle felder ein = 1
-$zeigefelder['letter'] = array("0", "2", "3");
-
-
+// felder inputfeld-size bzw. sichtbarkeit per frontend
 $f = fopen ("dbf.conf.html.txt", "r");
 $ln= 0;
 while ($line= fgets ($f))
 {
  $line;
  list($db_1, $t_1, $feld_1, $size_1) = explode(":", $line);
- $feldz[$db_1][$t_1][$feld_1] = $size_1;
+ $feldz[$db_1][$t_1][$feld_1] = str_replace( "\n" , "", $size_1);
 }
 fclose ($f);
 

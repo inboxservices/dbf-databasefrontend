@@ -1,5 +1,13 @@
 <?
-// werte einlesen
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
 $f = fopen ("dbf.conf.html.txt", "r");
 $ln= 0;
 while ($line= fgets ($f))
@@ -17,10 +25,23 @@ fclose ($f);
  $db_0 = $_POST['db'];
  $feld_0 = $_POST['feld'];
  $size_0 = $_POST['size'];
- $feldz[$db_0][$t_0][$feld_0] = $size_0 . "\n";
+ $reset = $_POST['reset'];
+
+
+ if ( $reset == 1 )
+ {
+  for ( $satz = 0 ; $satz <= $feld_0; $satz++ )
+  {
+   echo(" $feld ");
+   $feldz[$db_0][$t_0][$satz] = 2 . "\n";
+  }
+ }
+ else
+ {
+  $feldz[$db_0][$t_0][$feld_0] = $size_0 . "\n";
+ }
 
 // werte schreiben
-
 $f = fopen ("dbf.conf.html.txt", "w");
 
 while (list($db_2, $args1) = each($feldz))
@@ -38,6 +59,7 @@ while (list($db_2, $args1) = each($feldz))
   }
  }
 }
+
 fputs ($f, "\n" );
 fclose ($f);
 

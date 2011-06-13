@@ -1,8 +1,13 @@
 <?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
-// leoschen / updaten und neu eintragen
-// sql-staetements aus obigen daten generieren
-// und abfrage durchfuehren.
 
 if ( $schritt != "" )
 {
@@ -24,7 +29,7 @@ if ( $schritt != "" )
  if(!($result=mysql_query($sql,$conn)))
  {
   $myer = mysql_error($conn);
-  $infotext = ("<br>Status: <font size='-5'>Daten wurden <b> nicht </b> $brin. Ein Fehler is aufgetreten.<br>");
+  $infotext = ("<br>Status: <font size='-5'>Daten wurden <b> nicht </b> $brin. Ein Fehler is aufgetreten.<br><b> $myer</b><br>");
  }
  else
  {

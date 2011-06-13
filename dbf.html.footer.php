@@ -1,4 +1,15 @@
+<?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
+
+?>
 <div id='hund'>
  <a href="http://ls.to">
   <img src="img/dbf.cooper.d.jpg" width="50" border="0"

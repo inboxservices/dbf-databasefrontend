@@ -1,11 +1,13 @@
 <?
-// datenbank-editing-admin mit generischer struktur
-// single-file version ( db.php )
-// v 0.996b
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
-include("dbf.vars.php");
 
 session_start();
 
@@ -57,12 +59,12 @@ if ( $datenbankleer != 1 )
    if ( $datenbankleer != 1 )
    {
 
-    if ( $rowcount > $abnunforschleife AND isset($sqlsort[$t])===false ) { $sqlsort[$t] = 1; }
+    if ( $rowcount > $abnunforschleife AND isset($feldz[$db][$t]['schleifenart_forwhile'])===false ) { $feldz[$db][$t]['schleifenart_forwhile'] = "f"; }
 
-    if ( ( $sqlsort[$t] == 1 ) AND ( !$wassql ) )
+    if ( ( $feldz[$db][$t]['schleifenart_forwhile'] != "w" ) AND ( !$wassql ) )
     {
-     include("dbf.edit.for.php");
      $debug_status = $debug_status . "sort: for - $t <br>\n";
+     include("dbf.edit.for.php");
     }
     else
     {

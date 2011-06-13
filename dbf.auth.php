@@ -1,10 +1,12 @@
 <?
-// datenbank-editing-admin mit generischer struktur
-// single-file version ( db.php )
-// v 0.996b
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
-// bereich: auth
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
 $url_action = (empty($_REQUEST['action'])) ? 'logIn' : $_REQUEST['action'];
 $auth_realm = (isset($auth_realm)) ? $auth_realm : '';

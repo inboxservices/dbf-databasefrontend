@@ -1,4 +1,14 @@
 <?
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
+
 $csvzaehler=0;
 
 if ( $csvausgabe == "0" )
@@ -9,7 +19,9 @@ $debug_status = $debug_status . "eingabe: $csvausgabe ";
 echo("<ul><table><form action='' method='POST'>
 <tr><td><b><i> csv-EXPORTER </i></b></td>	<td> </td></tr>
 <tr><td> </td>	<td> </td></tr>
-<tr><td> sql:	</td><td colspan='2'>	<input type='Text' name='sqlcsv' value='select * from $t' size='60' maxlength='255' style='background:#9BCCCA; font-size:8pt'>	</td></tr>
+<tr><td> sql:	</td><td colspan='2'>
+  <textarea id='sqlcsv' name='sqlcsv' cols='100' rows='9' style='background:#9BCCCA; font-size:8pt'>select * from $t</textarea>
+</td></tr>
 <tr><td><b> Ausgabe-Format </b></td>	<td> </td></tr>
 <tr><td></td><td> feld-begrenzer:	</td><td width='100'>	<input type='Text' name='csvbegrenzer' value='|' size='5' maxlength='5' style='background:#9BCCCA; font-size:8pt'>	</td></tr>
 <tr><td></td><td> zeilenende:		</td><td width='100'>	<input type='Text' name='csvende' value='\\n' size='5' maxlength='5' style='background:#9BCCCA; font-size:8pt'>	</td></tr>
@@ -19,7 +31,9 @@ echo("<ul><table><form action='' method='POST'>
 <tr><td><b> Ausgabe-Art </b></td>	<td> </td></tr>
 <tr><td></td><td width='100'>hier anzeigen</td>	<td><input type='radio' name='csvausgabe' value='1' checked>	</td></tr>
 <tr><td></td><td width='100'>senden (downloaden)</td>	<td><input type='radio' name='csvausgabe' value='2'>	</td></tr>
-</form></table></ul>");
+</form></table></ul>
+<input type='hidden' id='menginfo' name='menginfo'>
+");
 
 }
 else

@@ -1,4 +1,0 @@
-dbf:letter:email:10.6
-dbf:letter:nix:5.33
-cms:chat001:timestamp:14.6
-cms:chat001:text:16.6

@@ -1,10 +1,12 @@
 <?
-// datenbank-editing-admin mit generischer struktur
-//
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
-//
-// index.php
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
 
 include("dbf.main.php");
 

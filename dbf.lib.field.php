@@ -1,20 +1,32 @@
 <?
-// datenbank-editing-admin mit generischer struktur
-// single-file version ( db.php )
-// v 0.996b
-// dbadmin (c) 2011/02 klaus oblasser
-// mail: ls@ls.to
-// bereich: libs
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
 
 // variablen leeren
 $kkeys="";
 $kvals="";
 $kboth="";
 $b_update="";
-$b_insert="";
+$che="";
+if ( $feldz[$db][$t]['schleifenart_forwhile'] == "w" ) { $wche = "selected"; }
+if ( $feldz[$db][$t]['schleifenart_forwhile'] == "f" ) { $fche = "selected"; }
+
+$b_insert="<td colspan='2'>list:
+<select onchange=\"schleifenart();\" name='schleifenartforwhile' id='schleifenartforwhile' >
+<option value='w' $wche> while </option>
+<option value='f' $fche> for12 </option>
+</select>
+</td>";
 $beschriftung1="";
 $beschriftung="";
-
+$b_sicht = $b_sicht . "<td><input type='checkbox' onchange=\"sichtbarall();\" name='sichtbaralles' id='sichtbaralles'></td>";
 
  // tabellen der 1sten.datenbank auslesen und in select-box und links verfuegbar machen.
  $conn2=mysql_connect("$host", "$user", "$password");
@@ -139,7 +151,8 @@ if ( $datenbankleer != 1 )
  $rowcount=mysql_num_rows($result2);
  $y=mysql_num_fields($result2);
 
- $debug_status = $debug_status . " ---- $y ----   <br>";
+ $feldanzahlzeiger = "<input type='hidden' name='feldanzahlzeiger' id='feldanzahlzeiger' value='". $y ."'>";
+ $debug_status = $debug_status . " feldanzahl: $y ----   <br>";
 
  $sp_1=0;
  for ($x=0; $x<$y; $x++)
@@ -148,36 +161,45 @@ if ( $datenbankleer != 1 )
   $sp_1++;
   if ( ( in_array($x, $zeigefelder[$t])  OR $zeigeallefelder[$t] == 1 ) OR ( $singleeintrag == 1 ) )
   {
-  
+
    $kkeyfuell = mysql_field_name($result2, $x);
-   if ( $x == "0" )
+
+   if ( $feldz[$db][$t][$x] == 1)
    {
-    $kkeys = "`" . $kkeyfuell . "`" ;
-    $kvals = "'" . mysql_real_escape_string( $$kkeyfuell ) . "'";
-    $kboth = "`" . $kkeyfuell . "`='" . mysql_real_escape_string( $$kkeyfuell ) . "'";
-    $ssuche="Select * FROM $table where `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
+    $debug_status = $debug_status . "<font color='red'>feld " . $x . " unsichtbar:" . $feldz[$db][$t][$x] . " -> " . $kkeyfuell . "</font><br>";
    }
    else
    {
-    $kkeys = $kkeys . ",`" . $kkeyfuell . "`";
-    $kvals = $kvals . "," . "'" . mysql_real_escape_string($$kkeyfuell) . "'";
-    $kboth = $kboth . ",`" .  $kkeyfuell . "`='" . mysql_real_escape_string($$kkeyfuell) . "'";
-    $ssuche= $ssuche .  " OR `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
-   }
-    $k[$x] = $kkeyfuell;
+    // $kkeyfuell = mysql_field_name($result2, $x);
+    if ( $x == "0" )
+    {
+     $kkeys = "`" . $kkeyfuell . "`" ;
+     $kvals = "'" . mysql_real_escape_string( $$kkeyfuell ) . "'";
+     $kboth = "`" . $kkeyfuell . "`='" . mysql_real_escape_string( $$kkeyfuell ) . "'";
+     $ssuche="Select * FROM $table where `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
+    }
+    else
+    {
+     $kkeys = $kkeys . ",`" . $kkeyfuell . "`";
+     $kvals = $kvals . "," . "'" . mysql_real_escape_string($$kkeyfuell) . "'";
+     $kboth = $kboth . ",`" .  $kkeyfuell . "`='" . mysql_real_escape_string($$kkeyfuell) . "'";
+     $ssuche= $ssuche .  " OR `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
+    }
+     $k[$x] = $kkeyfuell;
    
-   if ( ( in_array($x, $zeigefelder[$t])  OR $zeigeallefelder[$t] == 1 ) )
-   {
-    if ( $x == 0 ) { $xs = "key!"; } else { $xs = ""; }
-    $feldwx = $feldw[$db][$t][$kkeyfuell]; if ( $feldwx =="" ){ $feldwx=$feldwy; }
-    $beschriftung = $beschriftung . "<td id='".$kkeyfuell."' style='width: " . $feldwx . "px;'> $kkeyfuell ($x $xs) </td>"; // beschriften
-
-    $feldzx = $feldz[$db][$t][$kkeyfuell]; if ( $feldzx =="" ){ $feldzx=$feldzy; }
-    $b_insert = $b_insert . "<td><font face=arial size=1>
-    <input type='Text' id='" . $kkeyfuell . "_0' name='$kkeyfuell' value='' size='$feldzx' style='background:lemonchiffon; font-size:8pt'></td>";
-
+    if ( ( in_array($x, $zeigefelder[$t])  OR $zeigeallefelder[$t] == 1 ) )
+    {
+     if ( $x == 0 ) { $xs = "key!"; } else { $xs = ""; }
+     $feldwx = $feldw[$db][$t][$kkeyfuell]; if ( $feldwx =="" ){ $feldwx=$feldwy; }
+     $beschriftung = $beschriftung . "<td id='".$kkeyfuell."' style='width: " . $feldwx . "px;'>$kkeyfuell ($x $xs) </td>"; // beschriften
+ 
+     $feldzx = $feldz[$db][$t][$kkeyfuell]; if ( $feldzx =="" ){ $feldzx=$feldzy; }
+     $b_insert = $b_insert . "<td id='bi_".$x."'><font face=arial size=1>
+     <input type='Text' id='" . $kkeyfuell . "_0' name='$kkeyfuell' value='' size='$feldzx' style='background:lemonchiffon; font-size:8pt'></td>";
+ 
+     $b_sicht = $b_sicht . "<td id='bs_".$x."'><input type='checkbox' onchange=\"sichtbar('sichtbar_" . $x . "', '".$x."', '".$kkeyfuell."');\" id='sichtbar_" . $x . "' name='sichtbar_" . $x . "'></td>";
+    }
    }
-
   }
  }
  $debug_status = $debug_status . " ---- $kboth ----   <br>";
