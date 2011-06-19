@@ -8,7 +8,6 @@
 ##
 ###################################################################
 
-
 ?>
 <html>
 <head>
@@ -54,7 +53,7 @@
        <input type='hidden' name='db' id='db' value=<? echo("$db"); ?>>
 
 	<a href="" onclick="addtext(' order by id desc '); document.getElementById('sqlstatement').focus(); return false;">order</a>
-	<a href="" onclick="addtext(' limit 10'); document.getElementById('sqlstatement').focus(); return false;">limit 25</a>
+	<a href="" onclick="addtext(' limit 10'); document.getElementById('sqlstatement').focus(); return false;">limit 10</a>
 
       </form>
    </td>

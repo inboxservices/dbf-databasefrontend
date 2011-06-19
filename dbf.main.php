@@ -11,13 +11,26 @@
 
 session_start();
 
+// debugging output begin
+
 while ( list ($key,$val) = each ( $_REQUEST ) )
 {
- $$key = "$val";
  $debug_status = $debug_status . "key-val: $key - $val <br>";
-
- if ( !$t ) {$datenbankleer=1;}
+ if ( is_array( $val ) )
+ {
+  foreach( $val as $key2=>$val2)
+  {
+   $debug_status = $debug_status . " -> array: $key2 - $val2 <br>";
+  }
+ }
+ else
+ {
+  $$key = "$val"; 
+ }
 }
+$pkey = $_POST["pkey"];
+
+// debugging output end
 
 include("dbf.conf.php");
 

@@ -50,8 +50,6 @@ $abnunforschleife = 50;
 // #B spezialwerte je tabelle
 
 // sortier/ausgabe (for oder while)
-$sqlsort['dbf']['categories'] = "0"; // while
-$sqlsort['dbf']['ausfall'] = "1"; // for
 $sortorder['dbf']['products'] = "order by `products_model` DESC";
 // \
 

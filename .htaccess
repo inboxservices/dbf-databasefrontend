@@ -1,4 +1,12 @@
-#
+###################################################################
+##
+## dbf v 1.1
+## mysql DatenBank-Frontend mit generischer struktur
+## (c) 2011/02 klaus oblasser
+## mail: dbf@ls.to
+##
+###################################################################
+
 ErrorDocument 402 /index.php
 ErrorDocument 403 /index.php
 ErrorDocument 404 /index.php

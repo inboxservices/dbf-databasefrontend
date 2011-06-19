@@ -11,10 +11,15 @@
 
 if ( $schritt != "" )
 {
- $sql["sdelete"]="DELETE FROM $table where `" . $k[0] . "`='$show'"; // loeschen
- $sql["supdate"]="UPDATE $table SET $kboth where `". $k[0] . "`='$show'"; // update
+// $sql["sdelete"]="DELETE FROM $table where `" . $k[0] . "`='$show'"; // loeschen
+// $sql["supdate"]="UPDATE $table SET $kboth where `". $k[0] . "`='$show'"; // update
+// $sql["zeig"]="SELECT * FROM $table where `" . $k[0] . "`='$show'"; // zeig
+
+ $sql["sdelete"]="DELETE FROM $table where $kprimary"; // loeschen
+ $sql["supdate"]="UPDATE $table SET $kboth where $kprimary"; // update
+ $sql["zeig"]="SELECT * FROM $table where $kprimary"; // zeig
+
  $sql["sinsert"]="INSERT INTO $table ( $kkeys ) VALUES ( $kvals )"; // insert
- $sql["zeig"]="SELECT * FROM $table where `" . $k[0] . "`='$show'"; // insert
  $brin["sdelete"]="geloescht"; // loeschen
  $brin["supdate"]="geaendert"; // update
  $brin["sinsert"]="eingetragen"; // insert

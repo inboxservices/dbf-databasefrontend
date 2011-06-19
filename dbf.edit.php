@@ -8,7 +8,6 @@
 ##
 ###################################################################
 
-
 $zeileausgabe=1;
 
 echo("<font face=arial size=1><br><i> $infotext </i><br>");
@@ -20,14 +19,14 @@ $sql2="select * from $table " . $sortorder[$t];
 
 if ( $single == 1 )
 {
- $sql2="select * from $table where `$k[0]` = '$show'";
+ $sql2="select * from $table where $kprimary";
 }
 else
 {
 
  if ( $wassql == "suche" )
  {
-  $sql2=$ssuche;
+  $sql2= "Select * FROM $table where " . $ssuche;
   $wassql = 1;
  }
 
@@ -69,6 +68,7 @@ if(!($result2=mysql_query($sql2,$conn2)))
    {
     $b_update = "";
     $b_update2 = "";
+    $b_primaryupdate = "";
     $sp_tr++;
 
    // bestuecken der zeilen
@@ -82,6 +82,13 @@ if(!($result2=mysql_query($sql2,$conn2)))
      $kkeyfuell = mysql_field_name($result2, $x);
      $feldwx = $feldw[$db][$t][$kkeyfuell]; if ( $feldwx =="" ){ $feldwx=$feldwy; }
      $feldzx = $feldz[$db][$t][$kkeyfuell]; if ( $feldzx =="" ){ $feldzx=$feldzy; }
+
+     // primary_keys sammeln begin
+     if ( mysql_fetch_field($result2, $x)->primary_key == "1")
+     {
+      $b_primaryupdate = $b_primaryupdate . "<input type='hidden' name='pkey[" . $kkeyfuell . "]' value='$data2x'>\n";
+     }
+     // primary_keys sammeln end
 
      // singleeintrag
      //if ( $single == 1)
@@ -126,6 +133,7 @@ if(!($result2=mysql_query($sql2,$conn2)))
      <td>		     <input type='radio' name='schritt' value='sdelete'></td>
      <td bgcolor='#efefef'>  <input type='radio' name='schritt' value='zeig' checked></td>
     " . $b_update . "
+    " . $b_primaryupdate . "
     <input type='hidden' name='show' value='$data2[0]'>
     <input type='hidden' name='ursql' value='$ursql'>
     <input type='hidden' name='wassql' value='$wassql'>
@@ -159,6 +167,7 @@ if(!($result2=mysql_query($sql2,$conn2)))
       <td>flags</td>
      </tr>
     " . $b_update2 . "
+    " . $b_primaryupdate . "
     <input type='hidden' name='show' value='$data2[0]'></td>
     <input type='hidden' name='singleeintrag' value='1'></td>
     <input type='hidden' name='ursql' value='$ursql'>

@@ -8,7 +8,6 @@
 ##
 ###################################################################
 
-
 echo("<font face=arial size=1><br><i> $infotext </i><br>");
 
 $conn2=mysql_connect("$host", "$user", "$password");
@@ -20,12 +19,12 @@ $sql2="select * from $table " . $sortorder[$db][$t];
 
 if ( $single == 1 )
 {
- $sql2="select * from $table where `$k[0]` = '$show'";
+ $sql2="select * from $table where $kprimary";
 }
 
 if ( $wassql == "suche" )
 {
- $sql2=$ssuche;
+ $sql2= "Select * FROM $table where" . $ssuche;
 }
 
 if ( $wassql == "freitext" )
@@ -96,7 +95,7 @@ if(!($result2=mysql_query($sql2,$conn2)))
 
     $b_update = "";
     $b_update2 = "";
-
+    $b_primaryupdate = "";
    // bestuecken der zeilen
    // fuer "update" muss dies hier erfolgen, da die data[]-variablen nur hier gefunden werden.
    // man koennt dies als funktion in die library rausgeben.
@@ -120,6 +119,16 @@ if(!($result2=mysql_query($sql2,$conn2)))
       $t_flags = mysql_field_flags($result2, $x);
 
       $data2x = htmlspecialchars( $data2[$x] , ENT_QUOTES );
+
+
+      // primary_keys sammeln begin
+      if ( mysql_fetch_field($result2, $x)->primary_key == "1")
+      {
+       $b_primaryupdate = $b_primaryupdate . "<input type='hidden' name='pkey[" . $kkeyfuell . "]' value='$data2x'>\n";
+      }
+      // primary_keys sammeln end
+
+
       if ( ($t_type == "blob") )
       {
        $b_update2 = $b_update2 . "<tr><td><font face=arial size=1>$kkeyfuell </td><td> <textarea name='$kkeyfuell' rows='6' cols='85' style='background:lemonchiffon; font-size:8pt'>$data2x</textarea></td><td>$x : [$t_type] </td><td> [$t_len] </td><td> [$t_flags]</td></tr>";
@@ -154,8 +163,8 @@ if(!($result2=mysql_query($sql2,$conn2)))
      <td>		     <input type='radio' name='schritt' value='sdelete'></td>
      <td bgcolor='#efefef'>  <input type='radio' name='schritt' value='zeig' checked></td>
      <input type='hidden' name='akt' value='" . $akt . "'>
-
     " . $b_update . "
+    " . $b_primaryupdate . "
     <input type='hidden' name='show' value='$data2[0]'>
     <input type='hidden' name='t' value='$t'>
     <input type='hidden' name='db' value='$db'>
@@ -180,6 +189,7 @@ if(!($result2=mysql_query($sql2,$conn2)))
       <td>flags</td>
      </tr>
     " . $b_update2 . "
+    " . $b_primaryupdate . "
     <input type='hidden' name='show' value='$data2[0]'></td>
     <input type='hidden' name='singleeintrag' value='1'></td>
     <input type='hidden' name='t' value='$t'>

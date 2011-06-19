@@ -82,3 +82,7 @@ dbf 1.1 beta10
 dbf 1.1
  - felder koennen per checkbox/ajax ausgeschaltet
    versteckt bzw. wieder eingeschaltet/sichtbar gemacht werden. 
+
+ bugfix #001
+ - multi-primary-key updateingfunktion eingearbeitet.
+  

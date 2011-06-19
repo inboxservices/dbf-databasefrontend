@@ -8,11 +8,11 @@
 ##
 ###################################################################
 
-
 // variablen leeren
 $kkeys="";
 $kvals="";
 $kboth="";
+$kprimary="";
 $b_update="";
 $che="";
 if ( $feldz[$db][$t]['schleifenart_forwhile'] == "w" ) { $wche = "selected"; }
@@ -20,8 +20,8 @@ if ( $feldz[$db][$t]['schleifenart_forwhile'] == "f" ) { $fche = "selected"; }
 
 $b_insert="<td colspan='2'>list:
 <select onchange=\"schleifenart();\" name='schleifenartforwhile' id='schleifenartforwhile' >
-<option value='w' $wche> while </option>
 <option value='f' $fche> for12 </option>
+<option value='w' $wche> while </option>
 </select>
 </td>";
 $beschriftung1="";
@@ -164,6 +164,34 @@ if ( $datenbankleer != 1 )
 
    $kkeyfuell = mysql_field_name($result2, $x);
 
+  // primary_keys sammeln begin
+  if ( mysql_fetch_field($result2, $x)->primary_key == "1")
+  {
+   $pk = "[key]";
+
+//    foreach($pkey as $key=>$val)
+    {
+     
+    }
+
+    if ( $x == "0" )
+    {
+     $kprimary = "`" . $kkeyfuell . "`='" . mysql_real_escape_string( $pkey[$kkeyfuell] ) . "'";
+    }
+    else
+    {
+     $kprimary = $kprimary . " AND `" .  $kkeyfuell . "`='" . mysql_real_escape_string( $pkey[ $kkeyfuell] ) . "'";
+    }
+
+   $debug_status = $debug_status . " primary-key: $kkeyfuell  <br>";
+  }
+  else
+  {
+   $pk = "";
+  }
+  // primary_keys sammeln end
+
+
    if ( $feldz[$db][$t][$x] == 1)
    {
     $debug_status = $debug_status . "<font color='red'>feld " . $x . " unsichtbar:" . $feldz[$db][$t][$x] . " -> " . $kkeyfuell . "</font><br>";
@@ -171,42 +199,35 @@ if ( $datenbankleer != 1 )
    else
    {
     // $kkeyfuell = mysql_field_name($result2, $x);
-    if ( $x == "0" )
-    {
-     $kkeys = "`" . $kkeyfuell . "`" ;
-     $kvals = "'" . mysql_real_escape_string( $$kkeyfuell ) . "'";
-     $kboth = "`" . $kkeyfuell . "`='" . mysql_real_escape_string( $$kkeyfuell ) . "'";
-     $ssuche="Select * FROM $table where `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
-    }
-    else
-    {
      $kkeys = $kkeys . ",`" . $kkeyfuell . "`";
      $kvals = $kvals . "," . "'" . mysql_real_escape_string($$kkeyfuell) . "'";
      $kboth = $kboth . ",`" .  $kkeyfuell . "`='" . mysql_real_escape_string($$kkeyfuell) . "'";
      $ssuche= $ssuche .  " OR `" . $kkeyfuell . "` LIKE '%$sqlsuche%'";
-    }
      $k[$x] = $kkeyfuell;
    
     if ( ( in_array($x, $zeigefelder[$t])  OR $zeigeallefelder[$t] == 1 ) )
     {
-     if ( $x == 0 ) { $xs = "key!"; } else { $xs = ""; }
      $feldwx = $feldw[$db][$t][$kkeyfuell]; if ( $feldwx =="" ){ $feldwx=$feldwy; }
-     $beschriftung = $beschriftung . "<td id='".$kkeyfuell."' style='width: " . $feldwx . "px;'>$kkeyfuell ($x $xs) </td>"; // beschriften
+     $beschriftung = $beschriftung . "<td id='".$kkeyfuell."' style='width: " . $feldwx . "px;'>$kkeyfuell  </td>"; // beschriften
  
      $feldzx = $feldz[$db][$t][$kkeyfuell]; if ( $feldzx =="" ){ $feldzx=$feldzy; }
      $b_insert = $b_insert . "<td id='bi_".$x."'><font face=arial size=1>
      <input type='Text' id='" . $kkeyfuell . "_0' name='$kkeyfuell' value='' size='$feldzx' style='background:lemonchiffon; font-size:8pt'></td>";
  
-     $b_sicht = $b_sicht . "<td id='bs_".$x."'><input type='checkbox' onchange=\"sichtbar('sichtbar_" . $x . "', '".$x."', '".$kkeyfuell."');\" id='sichtbar_" . $x . "' name='sichtbar_" . $x . "'></td>";
+     $b_sicht = $b_sicht . "<td id='bs_".$x."'><input type='checkbox' onchange=\"sichtbar('sichtbar_" . $x . "', '".$x."', '".$kkeyfuell."');\" id='sichtbar_" . $x . "' name='sichtbar_" . $x . "'>($x $pk)</td>";
     }
    }
+   
   }
  }
+  $kkeys = substr( $kkeys, 1 );
+  $kvals = substr( $kvals, 1 );
+  $kboth = substr( $kboth, 1 );
+  $ssuche= substr( $ssuche, 3); 
+
  $debug_status = $debug_status . " ---- $kboth ----   <br>";
 
 } // datenbank leer
-
-// echo($debug_status);
 
 ?>
 
